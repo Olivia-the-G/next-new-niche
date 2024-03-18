@@ -28,7 +28,7 @@ Welcome to Whine About Wine, an online blog for posting about everything Wine! T
 Single paged application framework - [Learn More](https://react.dev/)
 
 ### Mongoose
-MongoDB programing language used for database management - [Learn More](https://www.mongodb.com/)
+MongoDB programming language used for database management - [Learn More](https://www.mongodb.com/)
 
 ### Express.js
 Node.js web application framework for building RESTful APIs - [Learn More](https://expressjs.com/)
