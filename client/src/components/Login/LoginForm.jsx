@@ -35,6 +35,7 @@ const Login = () => {
         name="email"
         value={formData.email}
         onChange={handleChange}
+        placeholder="Email"
       />
       <input
         type="password"

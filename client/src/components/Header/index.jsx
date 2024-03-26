@@ -7,7 +7,7 @@ import "./Header.css";
 const Header = ({ handleNavClick }) => {
   const [isSticky, setIsSticky] = useState(false);
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("home");
+  const [selectedTab, setSelectedTab] = useState("events");
 
   // This function will toggle the visibility of the navigation modal in mobile view
   const toggleNav = () => setIsNavModalOpen(!isNavModalOpen);
@@ -37,7 +37,7 @@ const Header = ({ handleNavClick }) => {
           alt="Profile"
           className="profile-image"
         />
-        <h2>Whine About Wine</h2>
+        <h2>Olivia's Five</h2>
       </div>
       <nav className={`nav flex-column ${!isNavModalOpen ? "" : "open"}`}>
         <Link
@@ -119,7 +119,10 @@ const Header = ({ handleNavClick }) => {
           spy={true}
           smooth={true}
           duration={500}
-          onClick={() => handleNavClick("testimonial")}
+          onClick={() => {
+            setSelectedTab("testimonial");
+            handleNavClick("testimonial");
+          }}
         >
           Testimonial
         </Link>
@@ -144,7 +147,10 @@ const Header = ({ handleNavClick }) => {
           spy={true}
           smooth={true}
           duration={500}
-          onClick={() => handleNavClick("LoginForm")}
+          onClick={() => {
+            setSelectedTab("LoginForm");
+            handleNavClick("LoginForm");
+          }}
         >
           Log In
         </Link>
@@ -155,7 +161,10 @@ const Header = ({ handleNavClick }) => {
           spy={true}
           smooth={true}
           duration={500}
-          onClick={() => handleNavClick("SignUpForm")}
+          onClick={() => {
+            setSelectedTab("SignUpForm");
+            handleNavClick("SignUpForm");
+          }}
         >
           Sign Up
         </Link>
@@ -163,7 +172,7 @@ const Header = ({ handleNavClick }) => {
 
       <div className="social-links">
         <a
-          href="https://linkedin.com"
+          href="https://linkedin.com/in/stanislavmorozan"
           target="_blank"
           rel="noopener noreferrer"
           className="icon-link"
@@ -171,7 +180,7 @@ const Header = ({ handleNavClick }) => {
           <i className="fab fa-linkedin-in"></i>
         </a>
         <a
-          href="https://github.com"
+          href="https://github.com/Stas-Cell-Max"
           target="_blank"
           rel="noopener noreferrer"
           className="icon-link"
@@ -179,7 +188,7 @@ const Header = ({ handleNavClick }) => {
           <i className="fab fa-github"></i>
         </a>
         <a
-          href="https://facebook.com"
+          href="https://facebook.com/stas.moozan"
           target="_blank"
           rel="noopener noreferrer"
           className="icon-link"
@@ -187,7 +196,7 @@ const Header = ({ handleNavClick }) => {
           <i className="fab fa-facebook-f"></i>
         </a>
         <a
-          href="https://twitter.com"
+          href="https://twitter.com/yourusername"
           target="_blank"
           rel="noopener noreferrer"
           className="icon-link"
@@ -195,7 +204,7 @@ const Header = ({ handleNavClick }) => {
           <i className="fab fa-twitter"></i>
         </a>
         <a
-          href="https://instagram.com"
+          href="https://instagram.com/stas_moozan"
           target="_blank"
           rel="noopener noreferrer"
           className="icon-link"
