@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
 import "./Header.css";
 
-
-const Header = ({ isLoggedIn, handleNavClick }) => {      
+const Header = ({ isLoggedIn, handleNavClick }) => {
   const [isSticky, setIsSticky] = useState(false);
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("events");
@@ -23,22 +22,29 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
     };
 
     window.addEventListener("scroll", checkScrollTop);
-    return () => window.removeEventListener("scroll", checkScrollTop);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", checkScrollTop);
+      // Resetting isSticky to false when component unmounts
+      setIsSticky(false);
+    };
   }, []);
 
   return (
     <header
-      className={`header bg-dark text-white vh-100 fix-to-left ${isSticky ? "sticky" : ""
-        }`}
+      className={`header bg-dark text-white vh-100 fix-to-left ${
+        isSticky ? "sticky" : ""
+      }`}
     >
       <div className="profile-container">
-      <div className="shadow"> 
-        <img
-          src="https://i.pinimg.com/564x/7f/4b/77/7f4b77922662e577a5202aea3d70592a.jpg"
-          alt="Profile"
-          className="profile-image"
-        />
-        <h2>Whine About Wine</h2>
+        <div className="shadow">
+          <img
+            src="https://i.pinimg.com/564x/7f/4b/77/7f4b77922662e577a5202aea3d70592a.jpg"
+            alt="Profile"
+            className="profile-image"
+          />
+          <h2>Whine About Wine</h2>
         </div>
       </div>
       <nav className={`nav flex-column ${!isNavModalOpen ? "" : "open"}`}>
@@ -98,8 +104,9 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
         </Link>
 
         <Link
-          className={`nav-link ${selectedTab === "featurepost" ? "active" : ""
-            }`}
+          className={`nav-link ${
+            selectedTab === "featurepost" ? "active" : ""
+          }`}
           style={{ cursor: "pointer" }}
           spy={true}
           smooth={true}
@@ -113,8 +120,9 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
         </Link>
 
         <Link
-          className={`nav-link ${selectedTab === "testimonial" ? "active" : ""
-            }`}
+          className={`nav-link ${
+            selectedTab === "testimonial" ? "active" : ""
+          }`}
           style={{ cursor: "pointer" }}
           spy={true}
           smooth={true}
@@ -140,7 +148,7 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
         >
           Subscribe
         </Link>
-        
+
         {isLoggedIn ? (
           <Link
             className={`nav-link ${selectedTab === "Home" ? "active" : ""}`}
@@ -153,11 +161,14 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
               handleNavClick("Home");
               handleLogoutClick();
             }}
-          >Log Out
+          >
+            Log Out
           </Link>
         ) : (
           <Link
-            className={`nav-link ${selectedTab === "LoginForm" ? "active" : ""}`}
+            className={`nav-link ${
+              selectedTab === "LoginForm" ? "active" : ""
+            }`}
             style={{ cursor: "pointer" }}
             spy={true}
             smooth={true}
@@ -172,7 +183,9 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
         )}
         {!isLoggedIn && (
           <Link
-            className={`nav-link ${selectedTab === "SignUpForm" ? "active" : ""}`}
+            className={`nav-link ${
+              selectedTab === "SignUpForm" ? "active" : ""
+            }`}
             style={{ cursor: "pointer" }}
             spy={true}
             smooth={true}
@@ -185,9 +198,6 @@ const Header = ({ isLoggedIn, handleNavClick }) => {
             Sign Up
           </Link>
         )}
-
-
-
       </nav>
 
       <div className="social-links">

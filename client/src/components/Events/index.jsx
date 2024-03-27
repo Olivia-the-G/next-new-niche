@@ -135,7 +135,7 @@ const Events = ({ Header, darkTheme }) => {
           <div className="items">
             {events.map((event, index) => (
               <div key={index}
-               className="item" 
+               className="item2" 
                tabIndex="0" 
                onClick={() => handleClick(index)} 
                style={{ 

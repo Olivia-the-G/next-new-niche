@@ -111,7 +111,7 @@
   perspective: calc(var(--index) * 35);
 }
 
-.item{
+.item2{
   width: calc(var(--index) * 3);
   height: calc(var(--index) * 15);
   background-color: #222;
@@ -125,7 +125,7 @@
 }
 
 
-.item::before, .item::after{
+.item2::before, .item2::after{
   content: '';
   position: absolute;
   height: 100%;
@@ -133,36 +133,36 @@
   right: calc(var(--index) * -1);
 }
 
-.item::after{
+.item2::after{
   left: calc(var(--index) * -1);
 }
 
-.items .item:hover{
+.items .item2:hover{
   filter: inherit;
   transform: translateZ(calc(var(--index) * 10));
 }
 
 /*Right*/
 
-.items .item:hover + *{
+.items .item2:hover + *{
   filter: inherit;
   transform: translateZ(calc(var(--index) * 8.5)) rotateY(35deg);
   z-index: -1;
 }
 
-.items .item:hover + * + *{
+.items .item2:hover + * + *{
   filter: inherit;
   transform: translateZ(calc(var(--index) * 5.6)) rotateY(40deg);
   z-index: -2;
 }
 
-.items .item:hover + * + * + *{
+.items .item2:hover + * + * + *{
   filter: inherit;
   transform: translateZ(calc(var(--index) * 2.5)) rotateY(30deg);
   z-index: -3;
 }
 
-.items .item:hover + * + * + * + *{
+.items .item2:hover + * + * + * + *{
   filter: inherit;
   transform: translateZ(calc(var(--index) * .6)) rotateY(15deg);
   z-index: -4;
@@ -171,27 +171,27 @@
 
 /*Left*/
 
-.items .item:has( + :hover){
+.items .item2:has( + :hover){
   filter: inherit;
   transform: translateZ(calc(var(--index) * 8.5)) rotateY(-35deg);
 }
 
-.items .item:has( + * + :hover){
+.items .item2:has( + * + :hover){
   filter: inherit;
   transform: translateZ(calc(var(--index) * 5.6)) rotateY(-40deg);
 }
 
-.items .item:has( + * + * + :hover){
+.items .item2:has( + * + * + :hover){
   filter: inherit;
   transform: translateZ(calc(var(--index) * 2.5)) rotateY(-30deg);
 }
 
-.items .item:has( + * + * + * + :hover){
+.items .item2:has( + * + * + * + :hover){
   filter: inherit;
   transform: translateZ(calc(var(--index) * .6)) rotateY(-15deg);
 }
 
-.items .item:active, .items .item:focus {
+.items .item2:active, .items .item2:focus {
 width: 28vw;
 filter: inherit;
 z-index: 100;

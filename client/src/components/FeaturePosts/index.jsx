@@ -161,7 +161,7 @@ const FeaturePosts = () => {
         mail: "mailto:example@gmail.com",
       },
       thumbImage: "../src/img/18 - 01.jpeg",
-      sliderImages: ["../src/img/18 - 02.jpeg", "../src/img/18 - 03.jpeg"],
+      sliderImages: ["../src/img/18 - 02.jpeg", "../src/img/New.png"],
       categories: ["*", filters.CHEESEWINE],
     },
 
@@ -179,7 +179,6 @@ const FeaturePosts = () => {
       categories: ["*", filters.OTHER],
     },
   ];
-
 
   // initialize an Isotope object with configs
   useEffect(() => {
