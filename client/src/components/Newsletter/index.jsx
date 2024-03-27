@@ -67,6 +67,50 @@ const Newsletter = ({  }) => {
             <button type="submit" className="btn btn-primary btn-custom">Submit</button>
           </div>
         </form>
+
+        <p className="text-5 text-light mb-4">Follow us /</p>
+        <div className="social-links">
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link"
+        >
+          <i className="fab fa-linkedin-in"></i>
+        </a>
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link"
+        >
+          <i className="fab fa-github"></i>
+        </a>
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link"
+        >
+          <i className="fab fa-facebook-f"></i>
+        </a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link"
+        >
+          <i className="fab fa-twitter"></i>
+        </a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link"
+        >
+          <i className="fab fa-instagram"></i>
+        </a>
+        </div>
       </div>
     </section>
     

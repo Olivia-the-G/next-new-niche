@@ -8,6 +8,7 @@
   height: 100%;
 }
 
+
 .container {
   max-width: 1400px;
   margin-top: 5px;
@@ -35,19 +36,19 @@
 .text-9 {
   font-size: 8rem; 
   letter-spacing: 0.05em;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
+.text-5{
+  font-size: 1.7rem; 
+  padding-top: 15px;
+}
 .text-uppercase {
   text-transform: uppercase;
 }
 
 .text-muted {
   color: #3f4346;
-}
-
-.text-dark {
-  color: #41484f;
 }
 
 .mb-3{
@@ -118,6 +119,23 @@
   border-color:  #64ffd8;
 }
 
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding-top: 0.1px;
+  padding-bottom: 0.5px;
+}
+
+.icon-link {
+  color: #fff; /* Adjust color as needed */
+  font-size: 20px; /* Adjust size as needed */
+}
+
+.icon-link:hover {
+  color: #cccccc; /* Adjust hover color as needed */
+}
 @media (max-width: 768px) {
   .text-9 {
     font-size: 1rem; /* Smaller text size on smaller screens */

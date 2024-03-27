@@ -68,7 +68,7 @@ const PostDetailsModal = ({ darkTheme, projectDetails }) => {
                 <div className="row g-4 ">
                   <div className="col-md-7">
                     <Slider {...settings} ref={sliderRef}>
-                      <div className="item">
+                      <div className="itemi">
                         <img
                           className="img-fluid"
                           alt=""
@@ -77,7 +77,7 @@ const PostDetailsModal = ({ darkTheme, projectDetails }) => {
                       </div>
                       {projectDetails?.sliderImages?.length > 0 &&
                         projectDetails?.sliderImages?.map((image, index) => (
-                          <div className="item" key={index}>
+                          <div className="itemi" key={index}>
                             <img className="img-fluid" alt="" src={image} />
                           </div>
                         ))}
