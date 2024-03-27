@@ -1,323 +1,167 @@
-import React, { useEffect, useState, useRef } from "react";
-import Isotope from "isotope-layout";
-import PostDetailsModal from "../PostDetailsModal";
-import "./FeaturePosts.css";
+import React, { useState, useEffect, useRef } from 'react';
+import './Events.css';
 
-const FeaturePosts = () => {
-  const isotope = useRef();
-
-  // store the filter keyword in a state
-  const [filterKey, setFilterKey] = useState("*");
-  const [imagesLoaded, setimagesLoaded] = useState(0);
-  const [selectedProjectDetails, setSelectedProjectDetails] = useState();
-
-  const filters = {
-    FOODWINE: "Food and Wine Pairing",
-    CHEESEWINE: "Cheese and Wine Pairing",
-    OTHER: "Random Articles",
-  };
-
-  const projectsData = [
+const Events = ({ Header, darkTheme }) => {
+  const [activeItem, setActiveItem] = useState(null);
+  const wrapperRef = useRef(null); // Reference to the wrapper for detecting outside
+  const events = [
     {
-      id: 1,
-      title: "Pinot Noir with earthy flavors",
-      projectInfo:
-        "Recipes made with earthy ingredients like mushrooms and lentils taste great with reds like Pinot Noir and Dolcetto, which are light-bodied but full of savory depth. Pinot is also often delicious alongside salmon, proving that red wine and fish can go together brilliantly.",
-      client: "Admin",
-      date: "May 06, 2019",
-      thumbImage:
-        "https://github.com/Olivia-the-G/next-new-niche/blob/main/client/src/img/01%20-%20Pinot%20Noir%20with%20earthy%20flavors.png?raw=true",
+      imageUrl:
+        "https://i.pinimg.com/564x/45/6e/10/456e100b6448a5b773a0363d1b2c8d55.jpg",
 
-      sliderImages: [
-        "../src/img/01 - Mushroom-Sauce-2.jpeg",
-        "../src/img/01 - Mushroom-Sauce.jpeg",
-      ],
-      categories: ["*", filters.FOODWINE],
+      url: "https://www.google.com",
+      title: "",
+      description: "",
     },
-
     {
-      id: 16,
-      title: "Fresh Cheese",
-      projectInfo:
-        "The best pairings for these types of cheese are light-bodied white wines, those with fruit-forward profiles and tight acidities. Wines are meant to be drunk fresh with no aging and spend most of their time in stainless steel tanks. Think Sauvignon Blanc, unoaked Chardonnay, Pinot Grigio, and Vermentino.",
-      client: "Admin",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "July 18, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "../src/img/16 - 01.jpeg",
-      sliderImages: ["../src/img/16 - 02.jpeg", "../src/img/16 - 03.jpeg"],
-      categories: ["*", filters.CHEESEWINE],
+      imageUrl:
+        "https://lh3.googleusercontent.com/-huSeQKd_-p8/W5DrHdvLOBI/AAAAAAABYQA/RP1o15IgfdsF67agyFnqrRBOYt_A_WaSwCHMYCw/cricova-winery-913?imgmax=1600",
+      url: "https://e22u.short.gy/KTU286",
+      title: "",
+      description: "",
     },
-
     {
-      id: 3,
-      title: "Champagne with anything salty",
-      projectInfo:
-        "Many dry sparkling wines, such as brut Champagne and Spanish cava, actually have a faint touch of fruity sweetness. This makes them extra-refreshing when served with salty foods. They also cut through the richness and oil of fried dishes: Bubbly and a bowl of potato chips is terrific.",
-      client: "Admin",
-      date: "September 16, 2019",
-      thumbImage: "../src/img/03 - Champagne 2.jpeg",
-      sliderImages: [
-        "../src/img/03 - Champagne 1.png",
-        "../src/img/03 - Champagne 3.jpeg",
-      ],
-      categories: ["*", filters.FOODWINE],
+      imageUrl:
+        "https://facts.net/wp-content/uploads/2023/07/15-facts-about-charleston-wine-food-festival-1690069801.jpg",
+      url: "https://charlestonwineandfood.com/",
+      title: "Charleston Wine & Food Festival",
+      description: "Where chefs, painters, and musicians swap their tools for aprons and corkscrews. It's not just a feast for your taste buds; it's a banquet for your soul. Here, fine dining meets fine art, all served with a side of Southern charm. Forget ordinary festivals—this is where gastronomy and gallery walk hand in hand, proving Charleston knows how to throw a party with palette and palate!"
     },
-
     {
-      id: 4,
-      title: "Cabernet Sauvignon with juicy red meat",
-      projectInfo:
-        "California Cabernet, Bordeaux, and Bordeaux-style blends are terrific with steaks and lamb dishes. The firm tannins in Cab cut through the fat and protein, which in turn smooth out the tannins. It's a perfect symbiotic relationship in each bite.",
-      client: "Admin",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "October 02, 2019",
-
-      thumbImage: "../src/img/04 - Cabernet Sauvignon with juicy red meat.png",
-      sliderImages: [
-        "../src/img/04 - Best+Sunday+Roast+Wines+roast+beef+thethreedrinkers.jpeg",
-        "../src/img/04 - Wine_to_Pair_with_Steak.jpg",
-      ],
-      categories: ["*", filters.FOODWINE],
+      imageUrl:
+        "https://orlandoflconnections.com/wp-content/uploads/2014/09/fwc-1.jpg",
+      url: "https://swandolphinfoodandwineclassic.com/",
+      title: "The Food & Wine Classic",
+      description:
+        "Get ready for a culinary magic carpet ride at the Food and Wine Classic in Walt Disney World! Indulge in endless eats and sips with a side of Disney dazzle. It's a festival where wine flows like pixie dust, and the food is fit for a prince or princess. Come for the taste, stay for the fairy-tale fun and maybe even spot a dolphin doing the backstroke!",
     },
-
     {
-      id: 6,
-      title: "Oak Used for Spirit Casks",
-      projectInfo:
-        "Spirits and oak have been almost inseparable since the 3rd century, back when the Romans swapped in barrels for the clay pots and other breakable vessels they traditionally used for booze-making. But the complex flavors these casks imparted were only later realized through sheer circumstance, after barrels were left to sit for extended periods in transit overseas. Eventually, Cognac producers began charring barrels to break down and caramelize the wood’s sugars, and distillers have never looked back.",
-      client: "Admin",
-      date: "May 06, 2020",
-      thumbImage: "../src/img/Oak.png",
-      sliderImages: [
-        "../src/img/white-vs-red-wine.jpg",
-        "../src/img/white-vs-red.png",
-      ],
-
-      categories: ["*", filters.OTHER],
+      imageUrl:
+        "https://i.pinimg.com/564x/6f/e0/99/6fe0994de4b59b7e0bcec893f211aaa9.jpg",
+      url: "https://www.carnifest.com/its-beaujolais-nouveau-time-festival-2024/",
+      title: "Beaujolais Nouveau Time Festival",
+      description:
+        "Mark your calendars for the Beaujolais Nouveau Time Festival, the ultimate wine bash! Every November, South Burgundy buzzes with 12 varieties of fresh wine, music, and fireworks. It's where wine flows and spirits soar. Ready your taste buds for a jubilee drenched in tradition and the newest reds. Cheers to adventure!",
     },
-
     {
-      id: 7,
-      title: "Wine Producing Countries",
-      projectInfo:
-        "Italy has been leading the way for several years now, making almost 20% of the global production, followed by France, ranked as the second largest wine producer, then Spain, while it has the most vineyard surface area in the world, it comes third on the list of the top wine-producing countries.This three countries produces nearly half of the world’s wine.",
-      client: "Admin",
-      date: "March 06, 2024",
-      thumbImage: "../src/img/vineyards-italy.jpeg",
-      sliderImages: ["./src/img/Italy Wine Map.png", "../src/img/TOP-5.PNG"],
-      categories: ["*", filters.OTHER],
+      imageUrl:
+        "https://cdn1.discovertuscany.com/img/montepulciano/bravio-delle-botti/bravio-delle-botti23.jpg?auto=compress,enhance,format&h=750",
+      url: "https://www.discovertuscany.com/montepulciano/bravio-delle-botti.html",
+      title: "Barrel race at Montepulciano",
+      description:
+        "Imagine a Tuscan festival where wine barrels become racing stars! The Bravìo delle Botti sees eight districts in a barrel-rolling battle through Poliziana's heart, all for a painted prize. It's a test of strength, strategy, and stamina, with every pusher dreaming of victory in the shadow of the Duomo. Pure, barrel-rolling brilliance!",
     },
-
     {
-      id: 17,
-      title: "Soft, Creamy Cheese",
-      projectInfo:
-        "To pair these cheeses, we must find bold wines that won’t fall short. This is where white wine and cheese pairing is essential. Full-bodied Chardonnays, traditional white Riojas, or oak-aged Viognier will have the necessary weight for the task. The dairy creaminess typical in some white wines, a product of malolactic fermentation, mirrors the flavors in cheese perfectly.",
-      client: "Admin",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "September 18, 2019",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-
-      thumbImage: "../src/img/17 - 01.jpeg",
-      sliderImages: ["../src/img/17 - 02.jpeg", "../src/img/17 - 03.jpeg"],
-      categories: ["*", filters.CHEESEWINE],
+      imageUrl:
+        "https://moldovatovisit.eu/wp-content/uploads/2018/04/moldova-wineries-tour-4-1024x658.jpg",
+      url: "https://moldova.travel/en/rutele-vietii/ziua-nationala-a-vinului/",
+      title: "Moldova's Wine Festival",
+      description:
+        "Dive into Moldova's wine festival, a vibrant showcase of national pride with stands flaunting wines from dry to sweet, aged in legendary cellars. Feast on traditional fare, from grilled delights to placinta, against a backdrop of folk music and dance. It's more than a tasting; it's a cultural immersion!",
     },
-
     {
-      id: 18,
-      title: "Aged Semi-Hard and Hard Cheese",
-      projectInfo:
-        "As cheese ages, it loses moisture and gains flavor concentration. Cheddar, Edam, Emmental, and Gouda are considered semi-hard cheeses. Their creaminess is characteristic, and so is their firm but malleable texture. Moreover, the flavor can be mild or quite assertive. Semi-hard cheeses will pair nicely with medium-bodied red wines like Merlot, Malbec, or a Montepulciano.",
-      client: "Admin",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "December 24, 2020",
-      url: {
-        name: "www.example.com",
-        link: "https://www.example.com",
-      },
-      socialLinks: {
-        facebook: "http://www.facebook.com/",
-        twitter: "http://www.twitter.com/",
-        google: "http://www.google.com/",
-        instagram: "http://www.instagram.com/",
-        mail: "mailto:example@gmail.com",
-      },
-      thumbImage: "../src/img/18 - 01.jpeg",
-      sliderImages: ["../src/img/18 - 02.jpeg", "../src/img/New.png"],
-      categories: ["*", filters.CHEESEWINE],
+      imageUrl:
+        "https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-6/420046892_768184115346173_77036514565723437_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=K7UvmG8bUaUAX_ix0mK&_nc_ht=scontent-ord5-2.xx&oh=00_AfDqE2Dy_tMfBtMQl0bhZKxjgZvp-ZzgJLgoMlkG871c9w&oe=66066589",
+      url: "https://niagarawinefestival.com/",
+      title: "SPRING SPARKLES FESTIVAL",
+      description:
+        "Let’s add a bit of sparkle to the early days of spring! Wake up from winter and kick off spring with fizz and fun. The Spring Sparkles Festival celebrates all 100% Ontario VQA Sparkling wines – traditional or charmat method, of any varietal or style. Integrate this wine into your everyday life and add some sparkle to your day, even in the humdrum of a long, Canadian winter.",
     },
-
     {
-      id: 19,
-      title: " How to store your wine properly",
-      projectInfo:
-        "The golden rule of storing wine, whether it’s for next month or next decade, is to keep it somewhere (1) cool, (2) dark, and (3) away from temperature fluctuations, and (4) away from vibrations. Pro Tip: Wine bottles with corks in them should be stored on their side so that the cork can remain moist and sealed. Wines with screw caps can be stored upright.",
-      client: "Admin",
-      technologies: "iOS, HTML5, CSS3, PHP, Java",
-      industry: "Art & Design",
-      date: "November 14, 2019",
-      thumbImage: "../src/img/store-wine1.png",
-      sliderImages: ["../src/store-wine.jpeg", "../src/img/store-wine-2.jpeg"],
-      categories: ["*", filters.OTHER],
+      imageUrl:
+        "https://www.spain.info/export/sites/segtur/.content/imagenes/reportajes/rioja-la/fiesta-vendimia-la-rioja.jpg",
+      url: "https://www.spain.info/en/discover-spain/fiestas-grape-harvest-rioja/",
+      title: "The San Mateo Festival ",
+      description:
+        "Stomp into Spain's San Mateo Festival, where your feet get a juicy workout squishing grapes! It's a week of wine worship in Rioja, blending tradition with toe-tapping fun since '56. Dance, drink, and discover wine-making from vine to glass. It's the grape-est party ever, where every squish is a wish for fun!",
+    },
+    {
+      imageUrl:
+        "https://i.pinimg.com/564x/3c/77/da/3c77da9a3e11cf13a0f82d77ac00d9d0.jpg",
+      url: "",
+      title: "",
+      description: "",
+    },
+    {
+      imageUrl:
+        "https://i.pinimg.com/564x/02/51/5d/02515dcf6a7122f956db8c82bc19babf.jpg",
+      url: "",
+      title: "",
+      description: "",
+    },
+    {
+      imageUrl:
+        "https://i.pinimg.com/564x/58/52/66/585266a2629197a265adbdfe6d0d56a5.jpg",
+      url: "",
+      title: "",
+      description: "",
     },
   ];
 
-  // initialize an Isotope object with configs
-  useEffect(() => {
-    isotope.current = new Isotope(".portfolio-filter", {
-      itemSelector: ".filter-item",
-      layoutMode: "masonry",
-    });
-
-    const handleResize = () => {
-      isotope.current.layout();
-    };
-
-    // Add resize event listener
-    window.addEventListener("resize", handleResize);
-
-    // cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      isotope.current.destroy();
-    };
-  }, []);
-
-  // handle images loaded and filter key change
-  useEffect(() => {
-    if (projectsData.length && imagesLoaded === projectsData.length) {
-      isotope.current.arrange({
-        filter: filterKey === "*" ? "*" : `.${filterKey}`,
-      });
-    }
-  }, [filterKey, imagesLoaded]);
-
-  const handleFilterKeyChange = (key) => () => {
-    setFilterKey(key);
+  const handleClick = (index) => {
+    setActiveItem(index === activeItem ? null : index); // Toggle active state or set new
   };
 
+  useEffect(() => {
+    // Function to check if click is outside the items and reset activeItem
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setActiveItem(null); // Deactivate all items
+      }
+    };
+
+    // Add event listener for clicks
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // Clean up the event listener
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wrapperRef]);
+ 
   return (
-    <>
-      <section id="portfolio" className="container px-lg-5 min-vh-100">
-        <div className="container px-lg-5">
-          {/* Heading */}
-          <div className="position-relative d-flex text-center mb-5">
-            <h2 className="text-24 fw-600 w-100 mb-0 text-light opacity-4">
-              Currated Corks
-            </h2>
-            <p className="text-9 text-dark fw-600 position-absolute w-100 align-self-center lh-base mb-0">
-              FEATURED POSTS
-              <span className="heading-separator-line  d-block mx-auto" />
-            </p>
-          </div>
-          {/* Heading end*/}
+    <section id="events" className={`section ${darkTheme ? "bg-dark-1" : ""}`}>
+      <div className={`container ${Header ? "" : "px-lg-5"}`}>
+        <div className="position-relative d-flex text-center mb-5">
+          <h2 className={`text-24 fw-600 w-100 mb-0 ${darkTheme ? "text-muted opacity-1" : "text-light opacity-4"}`}>
+            Grape Gatherings
+          </h2>
+          <p className={`text-9 text-dark fw-700 position-absolute w-100 align-self-center lh-base mb-0 ${darkTheme ? "text-white" : "text-dark"}`}>
+            WINE EVENTS
+            <span className="heading-separator-line d-block mx-auto"></span>
+          </p>
+        </div>
 
-          {/* Filter Menu */}
-          <ul className="position-relative d-flex mb-5 justify-content-evenly">
-            <li className="nav-link">
-              <div
-                className={"nav-link " + (filterKey === "*" ? "active" : "")}
-                onClick={handleFilterKeyChange("*")}
-                style={{ cursor: "pointer" }}
-              >
-                All
+        <div className="wrapper" ref={wrapperRef}>
+          <div className="items">
+            {events.map((event, index) => (
+              <div key={index}
+               className="item" 
+               tabIndex="0" 
+               onClick={() => handleClick(index)} 
+               style={{ 
+                backgroundImage: `
+                  linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 15%),
+                  linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 35%),
+                  url(${event.imageUrl})
+                `,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}>
+                {/* Conditionally render item-content based on activeItem */}
+                {activeItem === index && (
+                  <div className="item-content">
+                    <a href={event.url} className="event-title" target="_blank" rel="noopener noreferrer">{event.title}</a>
+                    <p className="event-description">{event.description}</p>
+                  </div>
+                )}
               </div>
-            </li>
-            {Object.keys(filters).map((oneKey, i) => (
-              <li className="nav-link" key={i}>
-                <div
-                  className={
-                    "nav-link " +
-                    (filterKey === filters[oneKey] ? "active" : "")
-                  }
-                  style={{ cursor: "pointer" }}
-                  onClick={handleFilterKeyChange(filters[oneKey])}
-                >
-                  {filters[oneKey]}
-                </div>
-              </li>
             ))}
-          </ul>
-
-          {/* portfolio cards */}
-          <div className="portfolio popup-ajax-gallery">
-            <div className="row portfolio-filter filter-container g-4">
-              {projectsData.length > 0 &&
-                projectsData.map((project) => {
-                  if (project.categories.includes(filterKey)) {
-                    return (
-                      <div
-                        className={
-                          "col-sm-6 col-lg-4 filter-item " +
-                          project.categories.join(" ")
-                        }
-                        key={project.id}
-                      >
-                        <div className="portfolio-box rounded">
-                          <div className="portfolio-img rounded">
-                            <img
-                              onLoad={() => {
-                                setimagesLoaded(imagesLoaded + 1);
-                              }}
-                              className="img-fluid d-block portfolio-image"
-                              src={project.thumbImage}
-                              alt=""
-                            />
-                            <div className="portfolio-overlay">
-                              <a
-                                className="popup-ajax stretched-link"
-                                href=""
-                                onClick={() => {
-                                  setSelectedProjectDetails(project);
-                                }}
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                              />
-                              <div className="portfolio-overlay-details">
-                                <h5 className="text-white fw-400">
-                                  {project.title}
-                                </h5>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  } else {
-                    return "";
-                  }
-                })}
-            </div>
           </div>
         </div>
-      </section>
-      <div className="project-details-modal">
-        {/* Modal */}
-        <PostDetailsModal
-          projectDetails={selectedProjectDetails}
-          darkTheme={false}
-        ></PostDetailsModal>
       </div>
-    </>
+    </section>
   );
 };
 
-export default FeaturePosts;
+
+export default Events;
